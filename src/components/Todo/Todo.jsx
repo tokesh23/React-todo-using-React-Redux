@@ -1,12 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import "./Todo.css"
 
-const Todo = ({todoData}) => {
+const Todo = ({todoData, isFinished,ChangeFinished}) => {
+
+  const [finishd,setFinished]= useState(isFinished)
   return (
     <div>
        
        <div className='todo-wrapper'>
-         <input type="checkbox" />
+         <input type="checkbox" checked={finishd} onChange={(e)=>{
+          setFinished(e.target.checked)
+          ChangeFinished(e.target.checked)
+         }}/>
       <h2>{todoData}</h2>
         <button>Edit</button>
         <button>Delete</button>
