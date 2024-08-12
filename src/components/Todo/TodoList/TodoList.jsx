@@ -1,17 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Todo from '../Todo'
+import TodoContext from '../../../context/Context'
+ 
+ 
 
-const TodoList = ({list,setList}) => {
+const TodoList = () => {
+  const {list,setList}= useState(TodoContext)
 
 
-
-    // const list = [
-    //    { id:1, todData: "todo1"},
-    //    { id:2, todData: "todo2"},
-
-    // ]
+ 
   return (
     <div>
+  
         {
         list.length>0 && list.map((todo)=><Todo key= {todo.id} todoData={todo.todData}
         isFinished={(todo.Finished)} 
@@ -26,6 +26,20 @@ const TodoList = ({list,setList}) => {
           setList(updateList)
           
         }}
+        onDelete={()=>{
+          const updateList = list.filter(t=>t.id!=todo.id)
+          setList(updateList)
+        }}
+          onEdit={(todoText)=>{
+            const  updateList = list.map((t)=>{
+              if(t.id==todo.id){
+                todo.todData=todoText;
+              }
+              return t
+            })
+            setList (updateList)
+          }} 
+
         />)
         }
     </div>
